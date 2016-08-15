@@ -26,7 +26,9 @@ class Place < ApplicationRecord
 		end
 	end
 
-	def category
-		Category.find(category_id)
-	end
+	#def category
+	#	Category.find(category_id)
+	#end
+	belongs_to :category
+		has_many :comments
 end

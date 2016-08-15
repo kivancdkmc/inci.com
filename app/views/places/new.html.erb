@@ -1,4 +1,4 @@
-<h1>Create a new Place</h1>
+<div align="center"><h1>Create a new Place</h1>
 
 <% if @place.errors.any? %>
 	<h3>
@@ -6,4 +6,10 @@
 	</h3>
 <%end%>
 
+<form action="<%= places_path %>" method="post">
+
+
 <%= render "form" %>
+
+</form>
+</div>

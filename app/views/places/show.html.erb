@@ -1,16 +1,30 @@
+<% if @place.errors.any?%>
+	<%=@place.errors.full_messages.join(", ")%>
+<%end%>
+
 <br/>
 <li>
-<b>Name:</b>	<%= @place.name %>
-<b>Address</b>	<%= @place.address %>
-<b>Phone Number:</b>	<%= @place.phone_number %>
-<b>Contact Mail:</b>	<%= @place.contact_mail %>
-<b>Established at:</b> <%= @place.established_at %>
-<b>Description: </b> <%= @place.description %>
-<b>Category: </b> <%= @place.category.name%>
+<b>Name:</b>	<%= @place.name %></br>
+<b>Address:</b>	<%= @place.address %></br>
+<b>Phone Number:</b>	<%= @place.phone_number %></br>
+<b>Mail:</b>	<%= @place.contact_mail %></br>
+<b>Established at:</b> <%= @place.established_at %></br>
+<b>Description: </b> <%= @place.description %></br>
+<b> Category ID: </b> <%=@place.category.id%></br>
+<b>Category: </b> <%= @place.category.name%></br>
 </li>
+
+<br/><br/>
+<b>Yorumlar</b>
+<br/><br/>
+<% @place.comments.each do |c| %>
+	<li>
+	<%= c.body %><br/><br/>
+	</li>
+<%end%>
 
 <%= link_to "Back to places list", places_path %>
 <br/>
 <%= link_to "Edit place", edit_place_path %>
 <br/>
-<%= link_to "Delete place", place_path(@place), method: :delete, data:{confirm: "Emin misiniz?"}%>
+<%= link_to "Delete place", place_path(@place), method: :delete, data:{confirm: "Bu yer silinsin mi?"}%>

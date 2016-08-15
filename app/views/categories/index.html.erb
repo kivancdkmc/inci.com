@@ -1,0 +1,6 @@
+<%@categories.each do |categories|%>
+<b>ID: </b> <%=categories.id%>
+<%=link_to categories.name, category_path(categories) %></br><hr/>							
+<%end%>
+
+<br/><%= link_to "yer listesine geri dön", places_path %>
