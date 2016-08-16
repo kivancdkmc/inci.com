@@ -1,7 +1,11 @@
+<%=link_to "Yeni bir yer için tıklayın", new_place_path(@places)%><br>
+<%= link_to "Kategori Listesi", categories_path(@categories) %>
+<hr/>
+
 <% @places.each do |p| %>
 	<div align="center"> <br/>
 	<b>Name:</b><%= p.name %></br>
-	<b>Address</b>	<%= p.address %></br>
+	<b>Address:</b>	<%= p.address %></br>
 	<b>Phone Number:</b>	<%= p.phone_number %></br>
 	<b>Contact Mail:</b>	<%= p.contact_mail %></br>
 	<b>Established at:</b> <%= p.established_at%></br>
@@ -9,7 +13,3 @@
 	<b>Category: </b> <%= p.category.name %></br>
 	<hr/></div>
 <%end%>
-
-</br>
-<%=link_to "Yeni bir yer için tıklayın", new_place_path(@places)%>
-<%= link_to "Kategori Listesi", categories_path(@categories) %>

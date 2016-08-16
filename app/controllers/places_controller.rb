@@ -1,6 +1,7 @@
 class PlacesController < ApplicationController
+	before_action :authenticate_user!, except: [:show, :index]
 	before_action :set_place, only: [:show, :update, :edit, :destroy]
-	
+	before_action :authorize_user!, only: [:edit, :update, :destroy]
 	def new
 		@place = Place.new
 		load_categories
@@ -11,10 +12,11 @@ class PlacesController < ApplicationController
 	end
 
 	def show
+		
 	end
 
 	def create 
-		@place = Place.new(place_params)
+		@place = current_user.places.new(place_params)
 		if @place.save
 			flash[:success] = 'İşlem başarıyla tamamlandı'
 			redirect_to place_path(@place)
@@ -43,6 +45,11 @@ class PlacesController < ApplicationController
 	end
 
 	private
+
+	def authorize_user!
+    redirect_to root_path, notice: "Not authorized" unless @place.user_id == current_user.id
+  	end
+
 	def set_place
 		@place = Place.find(params[:id])
 	end

@@ -1,3 +1,6 @@
 class Comment < ApplicationRecord
-belongs_to :place
+	validates :body, length: {minimum: 5}
+
+	belongs_to :place
+	belongs_to :user 
 end

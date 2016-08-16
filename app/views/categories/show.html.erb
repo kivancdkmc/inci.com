@@ -1,2 +1,8 @@
-<b> ID: </b> <%=@categories.id %>
-<b> Name: </b> <%=@categories.name %>
+<h1><%= @categories.name %></h1>
+
+<% @categories.places.each do |place| %>
+  <b>ID </b><%= place.id %>
+  <b>Title </b>
+  <%= link_to place.name, place_path(place) %>
+  <b>Description </b><%= place.description %><br>
+<% end %>

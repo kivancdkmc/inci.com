@@ -14,17 +14,40 @@
 <b>Category: </b> <%= @place.category.name%></br>
 </li>
 
-<br/><br/>
+ <br/><br/>
 <b>Yorumlar</b>
 <br/><br/>
 <% @place.comments.each do |c| %>
-	<li>
-	<%= c.body %><br/><br/>
-	</li>
+  <li>
+  <small><%= c.user.email %> :</small>
+      <p>
+        <%= c.body %>
+        <% if current_user.present? && c.user_id == current_user.id %>
+          <small><%= link_to "Delete", place_comment_path(@place, c), method: :delete %></small>
+        <% end %>
+      </p>
+  </li>
 <%end%>
 
+<% if current_user.present? %>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      Send a new comment
+    </div>
+    <div class="panel-body">
+      <%= form_for [@place, @place.comments.build] do |f| %>
+        <%= f.text_area :body, rows: 5 %><br>
+        <%= f.submit 'Send' %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<br/><br/>
 <%= link_to "Back to places list", places_path %>
+<% if current_user.present? and current_user.id == @place.user_id %>
 <br/>
 <%= link_to "Edit place", edit_place_path %>
 <br/>
 <%= link_to "Delete place", place_path(@place), method: :delete, data:{confirm: "Bu yer silinsin mi?"}%>
+<% end %>
