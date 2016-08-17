@@ -12,36 +12,27 @@
 <b>Description: </b> <%= @place.description %></br>
 <b> Category ID: </b> <%=@place.category.id%></br>
 <b>Category: </b> <%= @place.category.name%></br>
+<b>User: </b><%= @place.user.email %> | <%= @place.user.id %><br />
+<b>Average Rating: </b><%= @place.average_rating %><br />
+<b>Tags: </b><%= @place.tags.collect {|x| x.name }.join(", ")
+ %><br />
 </li>
 
- <br/><br/>
-<b>Yorumlar</b>
-<br/><br/>
-<% @place.comments.each do |c| %>
-  <li>
-  <small><%= c.user.email %> :</small>
-      <p>
-        <%= c.body %>
-        <% if current_user.present? && c.user_id == current_user.id %>
-          <small><%= link_to "Delete", place_comment_path(@place, c), method: :delete %></small>
-        <% end %>
-      </p>
-  </li>
-<%end%>
+ 
 
-<% if current_user.present? %>
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      Send a new comment
-    </div>
-    <div class="panel-body">
-      <%= form_for [@place, @place.comments.build] do |f| %>
-        <%= f.text_area :body, rows: 5 %><br>
-        <%= f.submit 'Send' %>
-      <% end %>
-    </div>
-  </div>
+<br/>
+<hr/>
+<br/>
+
+<%= render 'votes/form' %>
+
+<% @place.voters.each do |u| %>
+  <%= u.email %><br />
 <% end %>
+
+<%= render 'comments/comment_list' %>
+<%= render 'comments/form' %>
+
 
 <br/><br/>
 <%= link_to "Back to places list", places_path %>

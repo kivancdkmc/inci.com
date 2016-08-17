@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'votes/create'
+
+  get 'votes/destroy'
+
 	devise_for :users, controllers: {
 		sessions: 'users/sessions'
 	}
@@ -6,6 +10,8 @@ Rails.application.routes.draw do
 	root  'places#index'
 	resources :places do
 		resources :comments, only: [:create, :destroy]
+		#resources :votes, only: [:create, :destroy]
+		resources :votes, only: [:create, :update]
 	end
 	
 	resources :categories, only: [:show, :index]

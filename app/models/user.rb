@@ -5,5 +5,14 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
          has_many :places
-         has_many :comments
+         has_many :comments, dependent: :destroy
+         has_many :votes
+
+         before_destroy :assign_to_first_user
+
+  private
+
+    def assign_to_first_user
+        places.update_all(user_id: User.first.id)
+    end
 end

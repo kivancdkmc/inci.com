@@ -1,0 +1,14 @@
+<br/><br/>
+<b>Yorumlar</b>
+<br/><br/>
+<% @place.comments.each do |c| %>
+  <li>
+  <small><%= c.user.email %> :</small>
+      <p>
+        <%= c.body %>
+        <% if current_user.present? && c.user_id == current_user.id %>
+          <small><%= link_to "Delete", place_comment_path(@place, c), method: :delete %></small>
+        <% end %>
+      </p>
+  </li>
+<%end%>

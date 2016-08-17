@@ -17,8 +17,11 @@ class Place < ApplicationRecord
 	validates :name, :address, presence: true
 	validates :phone_number, numericality: {only_integer: true}
 	validates_format_of :contact_mail, :with => /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/
+		validate :check_established_at
 
-	validate :check_established_at
+	def average_rating
+    votes.average(:rating).to_s
+  	end
 
 	def check_established_at
 		if established_at.present? && established_at >= Date.today
@@ -29,7 +32,11 @@ class Place < ApplicationRecord
 	#def category
 	#	Category.find(category_id)
 	#end
-	belongs_to :category
-		has_many :comments
+		
+		belongs_to :category
+		has_many :comments, dependent: :destroy
 		belongs_to :user
+		has_many :votes
+		has_many :voters, through: :votes, source: :user
+		has_and_belongs_to_many :tags
 end
