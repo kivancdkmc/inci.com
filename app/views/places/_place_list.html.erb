@@ -1,0 +1,38 @@
+<% @places.each do |place| %>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<i class="fa fa-plus"></i>
+			<%= link_to place.category.name, category_path(place.category) %>
+			<i class="fa fa-angle-right"></i>
+			<%= link_to place.name, place_path(place) %>
+			<span class="pull-right label label-success">{<%= place.average_rating %>}</span>
+		</div>
+		<div class="panel-body">
+			<p>
+				<%= place.description %>
+			</p>
+		</div>
+    	<div class="panel-footer">
+			<div class="pull-left">
+				<p>
+					<span><i class="fa fa-user"></i> <strong>Ekleyen:</strong>
+					<a href="#"><%= place.user.email %></a></span>
+					<span>
+						<i class="fa fa-calendar-o"></i>
+						<strong>Eklenme Tarihi:</strong>
+						<%=
+	place.user.created_at.strftime("%d %B %Y")
+						%>
+						</span>
+		 	   	</p>
+		  	</div>
+	      	<div class="pull-right">
+				<%= link_to place_path(place), class: "btn btn-default" do %>
+					Devamını Oku
+					<i class="fa fa-angle-right"></i>
+				<% end %>
+	      	</div>
+	      	<div class="clearfix"></div>
+    	</div>
+	</div>
+<% end %>

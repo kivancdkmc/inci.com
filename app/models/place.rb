@@ -20,7 +20,9 @@ class Place < ApplicationRecord
 		validate :check_established_at
 
 	def average_rating
-    votes.average(:rating).to_s
+    #votes.average(:rating).to_s
+    rating = votes.average(:rating)
+    rating ? rating.to_s : "0.0"
   	end
 
 	def check_established_at
@@ -28,6 +30,10 @@ class Place < ApplicationRecord
 			errors.add(:established_at, "Kuruluş tarihi gecelek veya bugün olamaz!!")
 		end
 	end
+
+	def self.random_places
+    self.order("RANDOM()").all
+  	end
 
 	#def category
 	#	Category.find(category_id)

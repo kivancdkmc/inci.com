@@ -2,6 +2,11 @@ class PlacesController < ApplicationController
 	before_action :authenticate_user!, except: [:show, :index]
 	before_action :set_place, only: [:show, :update, :edit, :destroy]
 	before_action :authorize_user!, only: [:edit, :update, :destroy]
+	
+	def mine
+    	@places = current_user.places
+	end
+
 	def new
 		@place = Place.new
 		#load_categories
@@ -10,6 +15,7 @@ class PlacesController < ApplicationController
 
 	def index
 		@places = Place.all.order(:id)
+		@random_places = Place.random_places
 	end
 
 	def show
