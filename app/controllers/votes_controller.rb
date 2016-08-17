@@ -38,7 +38,7 @@ class VotesController < ApplicationController
     @vote = Vote.find(params[:id])
   end
 
-  def set_idea
+  def set_place
     @place = Place.find(params[:place_id])
   end
 
